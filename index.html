@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Suicide Rate By Country Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body id = "body" onresize="resizeGraph('normal')">
+<div id="container">
+    <div id="popupBoxes"></div>
+</div>
+<div id="arrows">
+    <button id="prev" style = "opacity:0">None</button>
+    <p id = "now">2000</p>
+    <button id="next" style = "opacity:1" onclick="ChangeTime('next')">2001</button>
+    <button style="display:none" id="back" onclick="createGraph('2000')">back</button>
+</div>
+<div id="narrative">
+    <div id="exclusions">
+        <h2>Excluded Countries:</h2>
+    </div>
+    <div id="text">
+        <h2>The Truth about Data Income Inequality and Rates of Suicide in Man and Woman  </h2>
+        <p> A study conducted </p>
+        <a href="https://www.kaggle.com/datasets/sandragracenelson/suicide-rate-of-countries-per-every-year">Data pertaining to suicide Rates</a>
+        <a href="https://www.kaggle.com/datasets/tmishinev/world-country-gdp-19602021">Data pertaining to a Countries GDP per Capita</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
