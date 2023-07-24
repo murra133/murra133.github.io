@@ -18,6 +18,15 @@ circle{
     margin-top: 16px;
     margin-bottom: 16px;
 }
+#instructions{
+    border : 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    background-color: white;
+    opacity: 1;
+    z-index: 1;
+}
 #narrative{
     display: flex;
     align-items: center;
@@ -29,6 +38,11 @@ circle{
     width: 70%;
     height:100%;
     border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+#narrative_text h2{
+    margin-top: 3px;
 }
 #exclusions{
     width:25%;

@@ -8,13 +8,22 @@
     <script type="text/javascript" src="script.js"></script>
 </head>
 <body id = "body" onresize="resizeGraph('normal')">
+    <div style="display: none;" id="instructions">
+        <h3>Instructions</h3>
+        <p> - <strong>Left Click</strong> on a Data point to see a Line Plot of all the rate changes</p>
+        <p> - <strong>Right Click</strong> on a Data point to Exclude from view. Use this to exclude outliers and expand the data</p>
+        <p> - <strong>Left Click</strong> within the Excluded box to re-plot excluded data points</p>
+        <p> - <strong>Hover Over</strong> data point to see specific data point values</p>
+        <p> - <strong>Click</strong> on the years to change the graphs year.</p>
+        <button onclick="closeInstruction()">Close Instructions</button>
+    </div>
 <div id="container">
     <div id="popupBoxes"></div>
 </div>
 <div id="arrows">
-    <button id="prev" style = "opacity:0">None</button>
+    <button id="prev" style="opacity: 0;" >None</button>
     <p id = "now">2000</p>
-    <button id="next" style = "opacity:1" onclick="ChangeTime('next')">2001</button>
+    <button id="next" style ="opacity:1" onclick="ChangeTime('next')">2001</button>
     <button style="display:none" id="back" onclick="createGraph('2000')">back</button>
 </div>
 <div id="narrative">
@@ -22,10 +31,19 @@
         <h2>Excluded Countries:</h2>
     </div>
     <div id="text">
-        <h2>The Truth about Data Income Inequality and Rates of Suicide in Man and Woman  </h2>
-        <p> A study conducted </p>
-        <a href="https://www.kaggle.com/datasets/sandragracenelson/suicide-rate-of-countries-per-every-year">Data pertaining to suicide Rates</a>
-        <a href="https://www.kaggle.com/datasets/tmishinev/world-country-gdp-19602021">Data pertaining to a Countries GDP per Capita</a>
+        <div id="narrative_text">
+            <h2 id="narrative_title">The Truth about Data Income Inequality and Rates of Suicide in Man and Woman in </h2>
+                <p> The connection between differences in incomes and suicide rates amongs nations cannot be stressed enough.
+                    Connecting data from the World Bank national accounts for country financials, and the suicides rates as 
+                    published by the World Health Organization from 2000 to 2019 show a link between the two. On <span id="nYear">2000</span>
+                    it was identified that countries with GDP per capita of less than $1000 had an average suicide rate of <span id="n1000"></span>,
+                    countries between $1000 and $10000 had an average suicide rate of <span id="n10000"></span>, countries with between $10000 and $50000
+                    had an average suicide rate of <span id="n50000"></span>, and countries with values greater than $50000 had an average suicide rate of <span id="ngreat"></span></p>
+        </div>
+        <button onclick="openInstructions()">Instructions</button>
+        <h5>Sources:</h5>
+        <a href="https://www.kaggle.com/datasets/sandragracenelson/suicide-rate-of-countries-per-every-year">Compiled World Health Organizations Data for Nations between 2000 and 2019</a><br>
+        <a href="https://www.kaggle.com/datasets/tmishinev/world-country-gdp-19602021">Compiled World Bank national financials data for nations between 1960 and 2021 </a>
         </div>
     </div>
 </div>
