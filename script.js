@@ -1,3 +1,5 @@
+// Bug:
+// When going to secret, 1999 appears.
 var scene = "Global";
 var exclusions =new Set();
 
@@ -200,7 +202,8 @@ async function ChangeTime(action){
     let prev = did("prev");
     did("back").setAttribute("style","display:none");
     if(action=="prev"){
-        next.innerHTML = year + 1;
+        if(scene == "Global" && year==2019) next.innerHTML = "Go to Secret";
+        else next.innerHTML = year + 1;
         now.innerHTML = year;
         if(year==2000 && scene=="Global"){
             prev.innerHTML = "None";
@@ -213,7 +216,8 @@ async function ChangeTime(action){
         }
     }
     if(action=="next"){
-        prev.innerHTML = year - 1;
+        if(scene=="Secret" && year==2000) prev.innerHTML = "Go back to Global View";
+        else prev.innerHTML = year - 1;
         now.innerHTML = year;
         if(year==2019 && scene!="Global"){
             next.innerHTML = "None";
@@ -259,12 +263,6 @@ function getMaxVals(data,year){
             mfem = Math.max(mfem,parseFloat(data[key]['female'][year]));
             mmal = Math.max(mmal,parseFloat(data[key]['male'][year]));
             mGDP = Math.max(mGDP,parseFloat(data[key]['GDP'][year]));
-            // for(let i = 0; i < 20;i++){
-            //     mAll = Math.max(mAll,parseFloat(data[key]['all'][String(2000+i)]));
-            //     mfem = Math.max(mfem,parseFloat(data[key]['female'][String(2000+i)]));
-            //     mmal = Math.max(mmal,parseFloat(data[key]['male'][String(2000+i)]));
-            //     mGDP = Math.max(mGDP,parseFloat(data[key]['GDP'][String(2000+i)]));
-            // }
         }
     }
     return [mAll,mfem,mmal,mGDP];
@@ -664,18 +662,23 @@ async function drillDown(element){
 
     // Create male line
     const male_line = d3.line().x((d)=> x(d.year)).y((d)=>y(d.male));
-    //Add data to 
+    //Add data to Graph
+
+    //All Line
     svg.append('g').attr("id","all_line").attr("transform", `translate(${marginLeft},${0})`)
     .selectAll('.line').append("g").data(da).enter().append('path').attr('d',all_line(da))
     .attr("stroke", "black").attr('fill','None');
 
+    //Female Line
     svg.append('g').attr("id","fem_line").attr("transform", `translate(${marginLeft},${0})`)
     .selectAll('.line').append("g").data(da).enter().append('path').attr('d',fem_line(da))
     .attr("stroke", "red").attr('fill','None');
 
+    //Male Line
     svg.append('g').attr("id","male_line").attr("transform", `translate(${marginLeft},${0})`)
     .selectAll('.line').append("g").data(da).enter().append('path').attr('d',male_line(da))
     .attr("stroke", "blue").attr('fill','None');
+
     // Append the SVG element.
     container.append(legend.node());
     container.append(svg.node());
