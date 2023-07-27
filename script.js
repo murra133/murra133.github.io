@@ -326,16 +326,28 @@ async function updateGraph(year){
     // Update Narrative
     if(scene == "Global"){
         d3.select("#narrative_text").html(getNarrativeHTML(data,year,false,false))
-    }
-    else{
-        d3.select("#narrative_text").html(getNarrativeHTML(data,year,false,true))
-    }
-
     //Update the data 
     svg.select(".graph").attr("transform", `translate(${marginLeft},${height - marginBottom})`).
     selectAll('circle').data(keys_).attr('cx',function(d,i){return x(parseInt(data[d]['male'][year]))})
     .attr('cy',function(d,i){return height - marginTop - marginBottom - y(- parseInt(data[d]['female'][year]))}).attr('r',function(d){return r(parseInt(data[d]['GDP'][year]))});
-
+    }
+    else{
+    // Declare color scale
+    const color = d3.scaleOrdinal()
+    .domain(["Male","Female"])
+    .range(["blue","red"])
+    
+    d3.select("#narrative_text").html(getNarrativeHTML(data,year,false,true))
+            //Update the data 
+    svg.select(".graph").attr("transform", `translate(${marginLeft},${height - marginBottom})`).
+    selectAll('circle').data(keys_).attr('cx',function(d,i){return x(parseInt(data[d]['male'][year]))})
+    .attr('cy',function(d,i){return height - marginTop - marginBottom - y(- parseInt(data[d]['female'][year]))}).attr('r',function(d){return r(parseInt(data[d]['GDP'][year]))})
+    .attr('fill',function(d){
+            let val = "Male";
+            if(parseFloat(data[d]['male'][year])<parseFloat(data[d]['female'][year])) val = "Female";
+            return color(val)
+        })
+    }
     d3.select("#popupBoxes").selectAll('div').data(keys_).style('left',function(d){return marginLeft + x(parseInt(data[d]['male'][year]))+1.5*r(parseInt(data[d]['all'][year]))+"px"})
     .style('top',function(d,i){return height*1.65 - r(-parseInt(data[d]['all'][year]))*1.5 - y(-parseInt(data[d]['female'][year]))+"px"})
     .html(function(d){return "<h5>"+d+"</h5><p>GDP per Capita: $"+Math.round(data[d]['GDP'][year])+"</p><p>Combined Rate: "+data[d]['all'][year]+"</p><p>Male Rate: "+data[d]['male'][year]+"</p><p>Female Rate: "+data[d]['female'][year]+"</p>"});
